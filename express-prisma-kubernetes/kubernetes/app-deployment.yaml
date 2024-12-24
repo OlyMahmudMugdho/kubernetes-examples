@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express-prisma-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: express-prisma
+  template:
+    metadata:
+      labels:
+        app: express-prisma
+    spec:
+      containers:
+        - name: app
+          image: olymahmudmugdho/express-prisma-app
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://username:password@postgres-service:5432/mydb?schema=public"
